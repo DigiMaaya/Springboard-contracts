@@ -19,18 +19,18 @@ Confirm project setup is solid and vesting logic is fully tested and working in 
 ---
 
 ## Friday 2 — July 3, 2026 | Core Sale Logic
-> Status: Upcoming
+> Status: ✅ Complete
 
 ### Deliverables
-- [ ] ProjectSale contract written (contribute, caps, whitelist, refund, finalize, pause)
-- [ ] Merkle whitelist integration working
-- [ ] ProjectSale unit tests written and passing
-  - [ ] Contribution flow
-  - [ ] Hard cap enforcement
-  - [ ] Soft cap failure + refund flow
-  - [ ] Finalization and treasury transfer
-  - [ ] Whitelist enforcement
-  - [ ] Pause and unpause
+- [x] ProjectSale contract written (contribute, caps, whitelist, refund, finalize, pause) — ✅ 2026-06-29
+- [x] Merkle whitelist integration working — ✅ 2026-06-29
+- [x] ProjectSale unit tests written and passing (46/46) — ✅ 2026-06-29
+  - [x] Contribution flow — ✅ 2026-06-29
+  - [x] Hard cap enforcement — ✅ 2026-06-29
+  - [x] Soft cap failure + refund flow — ✅ 2026-06-29
+  - [x] Finalization and treasury transfer — ✅ 2026-06-29
+  - [x] Whitelist enforcement — ✅ 2026-06-29
+  - [x] Pause and unpause — ✅ 2026-06-29
 
 ### Goal for call
 Full ProjectSale contract reviewed and all test cases green.
@@ -73,6 +73,6 @@ Full Milestone 1 demo-ready. All deliverables handed off.
 | Friday | Date | Focus | Status |
 |--------|------|--------|--------|
 | Week 1 | Jun 26 | Setup + Vesting | ✅ Complete |
-| Week 2 | Jul 3 | ProjectSale | Upcoming |
+| Week 2 | Jul 3 | ProjectSale | ✅ Complete |
 | Week 3 | Jul 10 | Factory + Integration | Upcoming |
 | Week 4 | Jul 17 | Deploy + Handoff | Upcoming |

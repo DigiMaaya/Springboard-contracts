@@ -22,22 +22,22 @@
 ## 2. ProjectSale Contract
 
 ### Functions
-- [ ] `contribute(amount)` — accepts stablecoin contribution from eligible user
-- [ ] `claimRefund()` — allows user to claim full refund if soft cap not reached
-- [ ] `finalizeSale()` — closes sale and transfers raised funds to treasury
-- [ ] `pauseSale()` — pauses contributions
-- [ ] `unpauseSale()` — resumes contributions
-- [ ] `setWhitelistRoot(merkleRoot)` — updates the Merkle whitelist root
-- [ ] `getUserContribution(user)` — returns total contributed amount for a wallet
-- [ ] `getSaleStatus()` — returns current sale state (raised amount, participant count, status)
-- [ ] `emergencyWithdraw()` — multisig-protected emergency function
+- [x] `contribute(amount)` — accepts stablecoin contribution from eligible user — ✅ 2026-06-29
+- [x] `claimRefund()` — allows user to claim full refund if soft cap not reached — ✅ 2026-06-29
+- [x] `finalizeSale()` — closes sale and transfers raised funds to treasury — ✅ 2026-06-29
+- [x] `pauseSale()` — pauses contributions — ✅ 2026-06-29
+- [x] `unpauseSale()` — resumes contributions — ✅ 2026-06-29
+- [x] `setWhitelistRoot(merkleRoot)` — updates the Merkle whitelist root — ✅ 2026-06-29
+- [x] `getUserContribution(user)` — returns total contributed amount for a wallet — ✅ 2026-06-29
+- [x] `getSaleStatus()` — returns current sale state (raised amount, participant count, status) — ✅ 2026-06-29
+- [x] `emergencyWithdraw()` — multisig-protected emergency function — ✅ 2026-06-29
 
 ### Events
-- [ ] `ContributionReceived(user, amount, timestamp)`
-- [ ] `SaleFinalized(totalRaised, totalParticipants, timestamp)`
-- [ ] `RefundClaimed(user, amount, timestamp)`
-- [ ] `SalePaused(admin, timestamp)`
-- [ ] `SaleUnpaused(admin, timestamp)`
+- [x] `ContributionReceived(user, amount, timestamp)` — ✅ 2026-06-29
+- [x] `SaleFinalized(totalRaised, totalParticipants, timestamp)` — ✅ 2026-06-29
+- [x] `RefundClaimed(user, amount, timestamp)` — ✅ 2026-06-29
+- [x] `SalePaused(admin, timestamp)` — ✅ 2026-06-29
+- [x] `SaleUnpaused(admin, timestamp)` — ✅ 2026-06-29
 
 ---
 
@@ -56,12 +56,12 @@
 
 - [ ] Factory owner is a multisig wallet
 - [ ] Treasury wallet is a multisig wallet
-- [ ] Backend admin role cannot directly move or withdraw funds
-- [ ] Project founder cannot modify sale parameters post-deployment without explicit admin approval
-- [ ] Emergency pause available at contract level
-- [ ] Emergency withdrawal requires multisig authorization
-- [ ] All critical admin actions emit on-chain events
-- [ ] Sale configuration locked at deployment (no silent changes)
+- [x] Backend admin role cannot directly move or withdraw funds — ✅ 2026-06-29 (ProjectSale: emergencyWithdraw is MULTISIG_ROLE-only, destination fixed to treasury)
+- [x] Project founder cannot modify sale parameters post-deployment without explicit admin approval — ✅ 2026-06-29 (ProjectSale config is immutable)
+- [x] Emergency pause available at contract level — ✅ 2026-06-29
+- [x] Emergency withdrawal requires multisig authorization — ✅ 2026-06-29
+- [x] All critical admin actions emit on-chain events — ✅ 2026-06-29
+- [x] Sale configuration locked at deployment (no silent changes) — ✅ 2026-06-29
 - [ ] Treasury wallet changes require multisig approval
 
 ---
@@ -79,16 +79,16 @@
 
 ## 6. Test Coverage
 
-- [ ] Contribution flow (happy path)
-- [ ] Hard cap enforcement
-- [ ] Soft cap failure and refund flow
-- [ ] Finalization and treasury transfer
-- [ ] Whitelist enforcement (Merkle proof)
-- [ ] Pause and unpause
+- [x] Contribution flow (happy path) — ✅ 2026-06-29
+- [x] Hard cap enforcement — ✅ 2026-06-29
+- [x] Soft cap failure and refund flow — ✅ 2026-06-29
+- [x] Finalization and treasury transfer — ✅ 2026-06-29
+- [x] Whitelist enforcement (Merkle proof) — ✅ 2026-06-29
+- [x] Pause and unpause — ✅ 2026-06-29
 - [x] Vesting cliff (no claim before cliff ends) — ✅ 2026-06-29
 - [x] Vesting claim schedule (correct amounts per interval) — ✅ 2026-06-29
 - [x] TGE unlock at start — ✅ 2026-06-29
-- [ ] Emergency controls
+- [x] Emergency controls — ✅ 2026-06-29
 
 ---
 
