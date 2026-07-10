@@ -117,6 +117,121 @@ describe("ProjectSale", function () {
         deploySale({ softCap: HARD_CAP + 1n, hardCap: HARD_CAP })
       ).to.be.revertedWithCustomError(sale, "InvalidCaps");
     });
+
+    it("reverts if minContribution > maxContribution", async () => {
+      const Sale = await ethers.getContractFactory("ProjectSale");
+      const badParams = {
+        projectId: 1,
+        tokenAddress: await projectToken.getAddress(),
+        paymentToken: await paymentToken.getAddress(),
+        treasury: treasury.address,
+        startTime: (await time.latest()) + 3600,
+        endTime: (await time.latest()) + 7200,
+        softCap: SOFT_CAP,
+        hardCap: HARD_CAP,
+        minContribution: MAX_CONTRIBUTION,
+        maxContribution: MIN_CONTRIBUTION,
+        tokenPrice: TOKEN_PRICE,
+        totalAllocation: TOTAL_ALLOCATION,
+        vestingContract: ethers.ZeroAddress,
+        refundEnabled: true,
+        whitelistRequired: false,
+        admin: admin.address,
+      };
+      await expect(Sale.deploy(badParams)).to.be.revertedWithCustomError(sale, "InvalidCaps");
+    });
+
+    it("reverts if tokenAddress is zero", async () => {
+      const Sale = await ethers.getContractFactory("ProjectSale");
+      const badParams = {
+        projectId: 1,
+        tokenAddress: ethers.ZeroAddress,
+        paymentToken: await paymentToken.getAddress(),
+        treasury: treasury.address,
+        startTime: (await time.latest()) + 3600,
+        endTime: (await time.latest()) + 7200,
+        softCap: SOFT_CAP,
+        hardCap: HARD_CAP,
+        minContribution: MIN_CONTRIBUTION,
+        maxContribution: MAX_CONTRIBUTION,
+        tokenPrice: TOKEN_PRICE,
+        totalAllocation: TOTAL_ALLOCATION,
+        vestingContract: ethers.ZeroAddress,
+        refundEnabled: true,
+        whitelistRequired: false,
+        admin: admin.address,
+      };
+      await expect(Sale.deploy(badParams)).to.be.revertedWithCustomError(sale, "ZeroAddress");
+    });
+
+    it("reverts if paymentToken is zero", async () => {
+      const Sale = await ethers.getContractFactory("ProjectSale");
+      const badParams = {
+        projectId: 1,
+        tokenAddress: await projectToken.getAddress(),
+        paymentToken: ethers.ZeroAddress,
+        treasury: treasury.address,
+        startTime: (await time.latest()) + 3600,
+        endTime: (await time.latest()) + 7200,
+        softCap: SOFT_CAP,
+        hardCap: HARD_CAP,
+        minContribution: MIN_CONTRIBUTION,
+        maxContribution: MAX_CONTRIBUTION,
+        tokenPrice: TOKEN_PRICE,
+        totalAllocation: TOTAL_ALLOCATION,
+        vestingContract: ethers.ZeroAddress,
+        refundEnabled: true,
+        whitelistRequired: false,
+        admin: admin.address,
+      };
+      await expect(Sale.deploy(badParams)).to.be.revertedWithCustomError(sale, "ZeroAddress");
+    });
+
+    it("reverts if treasury is zero", async () => {
+      const Sale = await ethers.getContractFactory("ProjectSale");
+      const badParams = {
+        projectId: 1,
+        tokenAddress: await projectToken.getAddress(),
+        paymentToken: await paymentToken.getAddress(),
+        treasury: ethers.ZeroAddress,
+        startTime: (await time.latest()) + 3600,
+        endTime: (await time.latest()) + 7200,
+        softCap: SOFT_CAP,
+        hardCap: HARD_CAP,
+        minContribution: MIN_CONTRIBUTION,
+        maxContribution: MAX_CONTRIBUTION,
+        tokenPrice: TOKEN_PRICE,
+        totalAllocation: TOTAL_ALLOCATION,
+        vestingContract: ethers.ZeroAddress,
+        refundEnabled: true,
+        whitelistRequired: false,
+        admin: admin.address,
+      };
+      await expect(Sale.deploy(badParams)).to.be.revertedWithCustomError(sale, "ZeroAddress");
+    });
+
+    it("reverts if admin is zero", async () => {
+      const Sale = await ethers.getContractFactory("ProjectSale");
+      const badParams = {
+        projectId: 1,
+        tokenAddress: await projectToken.getAddress(),
+        paymentToken: await paymentToken.getAddress(),
+        treasury: treasury.address,
+        startTime: (await time.latest()) + 3600,
+        endTime: (await time.latest()) + 7200,
+        softCap: SOFT_CAP,
+        hardCap: HARD_CAP,
+        minContribution: MIN_CONTRIBUTION,
+        maxContribution: MAX_CONTRIBUTION,
+        tokenPrice: TOKEN_PRICE,
+        totalAllocation: TOTAL_ALLOCATION,
+        vestingContract: ethers.ZeroAddress,
+        refundEnabled: true,
+        whitelistRequired: false,
+        admin: ethers.ZeroAddress,
+      };
+      await expect(Sale.deploy(badParams)).to.be.revertedWithCustomError(sale, "ZeroAddress");
+    });
   });
 
   // ─────────────────────────────────────────────
@@ -440,6 +555,8 @@ describe("ProjectSale", function () {
 
     it("only admin can pause/unpause", async () => {
       await expect(sale.connect(stranger).pauseSale()).to.be.reverted;
+      await sale.connect(admin).pauseSale();
+      await expect(sale.connect(stranger).unpauseSale()).to.be.reverted;
     });
   });
 

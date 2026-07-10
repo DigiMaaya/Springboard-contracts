@@ -66,11 +66,32 @@ describe("VestingContract", function () {
       ).to.be.revertedWithCustomError(vesting, "ZeroAddress");
     });
 
+    it("reverts with zero admin address", async () => {
+      const Vesting = await ethers.getContractFactory("VestingContract");
+      await expect(
+        Vesting.deploy(await token.getAddress(), ethers.ZeroAddress, TGE_PERCENT, CLIFF, DURATION, INTERVAL, vestingStart)
+      ).to.be.revertedWithCustomError(vesting, "ZeroAddress");
+    });
+
     it("reverts if tgePercent > 100", async () => {
       const Vesting = await ethers.getContractFactory("VestingContract");
       await expect(
         Vesting.deploy(await token.getAddress(), admin.address, 101, CLIFF, DURATION, INTERVAL, vestingStart)
       ).to.be.revertedWith("TGE percent exceeds 100");
+    });
+
+    it("reverts if vestingInterval is zero", async () => {
+      const Vesting = await ethers.getContractFactory("VestingContract");
+      await expect(
+        Vesting.deploy(await token.getAddress(), admin.address, TGE_PERCENT, CLIFF, DURATION, 0, vestingStart)
+      ).to.be.revertedWith("Interval must be > 0");
+    });
+
+    it("reverts if vestingDuration is less than vestingInterval", async () => {
+      const Vesting = await ethers.getContractFactory("VestingContract");
+      await expect(
+        Vesting.deploy(await token.getAddress(), admin.address, TGE_PERCENT, CLIFF, INTERVAL - 1, INTERVAL, vestingStart)
+      ).to.be.revertedWith("Duration < interval");
     });
   });
 
@@ -120,6 +141,16 @@ describe("VestingContract", function () {
       await expect(
         vesting.setAllocations([investor1.address], [ALLOCATION_1])
       ).to.be.revertedWithCustomError(vesting, "AllocationsAlreadyLocked");
+    });
+
+    it("reverts if a user address is zero", async () => {
+      await expect(
+        vesting.setAllocations([ethers.ZeroAddress], [ALLOCATION_1])
+      ).to.be.revertedWithCustomError(vesting, "ZeroAddress");
+    });
+
+    it("reverts lockAllocations if called by non-admin", async () => {
+      await expect(vesting.connect(stranger).lockAllocations()).to.be.reverted;
     });
   });
 
@@ -314,6 +345,33 @@ describe("VestingContract", function () {
 
     it("only admin can pause", async () => {
       await expect(vesting.connect(stranger).pauseVesting()).to.be.reverted;
+    });
+
+    it("only admin can unpause", async () => {
+      await vesting.pauseVesting();
+      await expect(vesting.connect(stranger).unpauseVesting()).to.be.reverted;
+    });
+  });
+
+  // ─────────────────────────────────────────────
+  // vestingStartDate not set
+  // ─────────────────────────────────────────────
+
+  describe("Vesting start date not set", () => {
+    it("reverts claim if vestingStartDate is zero", async () => {
+      const Vesting = await ethers.getContractFactory("VestingContract");
+      const zeroStartVesting = await Vesting.deploy(
+        await token.getAddress(),
+        admin.address,
+        TGE_PERCENT,
+        CLIFF,
+        DURATION,
+        INTERVAL,
+        0
+      );
+      await zeroStartVesting.setAllocations([investor1.address], [ALLOCATION_1]);
+      await expect(zeroStartVesting.connect(investor1).claim())
+        .to.be.revertedWithCustomError(zeroStartVesting, "VestingStartDateNotSet");
     });
   });
 
