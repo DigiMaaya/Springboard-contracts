@@ -3,19 +3,21 @@
 ## 1. SpringboardFactory Contract
 
 ### Functions
-- [ ] `createSale(projectId, tokenAddress, paymentToken, treasury, startTime, endTime, softCap, hardCap, minContribution, maxContribution, tokenPrice, totalAllocation, refundEnabled, whitelistRequired)` — deploys and registers a new ProjectSale contract
-- [ ] `getSale(projectId)` — returns sale contract address for a given project ID
-- [ ] `getAllSales()` — returns all registered sale contract addresses
-- [ ] `pauseFactory()` — pauses new sale deployments
-- [ ] `unpauseFactory()` — resumes new sale deployments
-- [ ] `setImplementation(newImplementation)` — updates sale contract template (clone pattern)
-- [ ] `transferFactoryAdmin(newAdmin)` — transfers factory ownership to new admin
+- [x] `createSale(projectId, tokenAddress, paymentToken, treasury, startTime, endTime, softCap, hardCap, minContribution, maxContribution, tokenPrice, totalAllocation, refundEnabled, whitelistRequired)` — deploys and registers a new ProjectSale contract — ✅ 2026-07-10
+- [x] `getSale(projectId)` — returns sale contract address for a given project ID — ✅ 2026-07-10
+- [x] `getAllSales()` — returns all registered sale contract addresses — ✅ 2026-07-10
+- [x] `pauseFactory()` — pauses new sale deployments — ✅ 2026-07-10
+- [x] `unpauseFactory()` — resumes new sale deployments — ✅ 2026-07-10
+- [x] `setImplementation(newImplementation)` — ✅ 2026-07-10 (implemented as a reserved slot; sales are deployed directly via `new ProjectSale(...)` rather than clones — see note below)
+- [x] `transferFactoryAdmin(newAdmin)` — transfers factory ownership to new admin — ✅ 2026-07-10
 
 ### Events
-- [ ] `SaleCreated(projectId, saleAddress, tokenAddress, paymentToken, timestamp)`
-- [ ] `FactoryPaused(admin, timestamp)`
-- [ ] `FactoryUnpaused(admin, timestamp)`
-- [ ] `ImplementationUpdated(oldImplementation, newImplementation, timestamp)`
+- [x] `SaleCreated(projectId, saleAddress, tokenAddress, paymentToken, timestamp)` — ✅ 2026-07-10
+- [x] `FactoryPaused(admin, timestamp)` — ✅ 2026-07-10
+- [x] `FactoryUnpaused(admin, timestamp)` — ✅ 2026-07-10
+- [x] `ImplementationUpdated(oldImplementation, newImplementation, timestamp)` — ✅ 2026-07-10
+
+> **Note on deployment pattern:** ProjectSale uses immutable constructor-set config per sale, so SpringboardFactory deploys full `ProjectSale` instances directly (`new ProjectSale(...)`) rather than EIP-1167 minimal proxy clones — clones would share the implementation's baked-in immutable values across all sales, which is incorrect. `setImplementation`/`implementation` are kept as a reserved, event-emitting slot for a future clone-based upgrade path but are not read by `createSale`. Decision confirmed with user on 2026-07-10.
 
 ---
 
@@ -62,18 +64,18 @@
 - [x] Emergency withdrawal requires multisig authorization — ✅ 2026-06-29
 - [x] All critical admin actions emit on-chain events — ✅ 2026-06-29
 - [x] Sale configuration locked at deployment (no silent changes) — ✅ 2026-06-29
-- [ ] Treasury wallet changes require multisig approval
+- [x] Treasury wallet changes require multisig approval — ✅ 2026-07-10 (ProjectSale.treasury is immutable — no function exists to change it post-deployment, by anyone, at all)
 
 ---
 
 ## 5. Standards & Security Implementation
 
-- [ ] All contracts use audited OpenZeppelin libraries
-- [ ] Role-based access control on all admin functions
-- [ ] Reentrancy protection on all fund-handling functions
-- [ ] SafeERC20 used for all token transfers
-- [ ] Pausability implemented for emergency situations
-- [ ] No custom token transfer logic
+- [x] All contracts use audited OpenZeppelin libraries — ✅ 2026-07-10
+- [x] Role-based access control on all admin functions — ✅ 2026-07-10
+- [x] Reentrancy protection on all fund-handling functions — ✅ 2026-07-10
+- [x] SafeERC20 used for all token transfers — ✅ 2026-07-10
+- [x] Pausability implemented for emergency situations — ✅ 2026-07-10
+- [x] No custom token transfer logic — ✅ 2026-07-10
 
 ---
 

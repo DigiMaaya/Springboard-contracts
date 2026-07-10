@@ -38,14 +38,14 @@ Full ProjectSale contract reviewed and all test cases green.
 ---
 
 ## Friday 3 — July 10, 2026 | Factory + Integration
-> Status: Upcoming
+> Status: ✅ Complete
 
 ### Deliverables
-- [ ] SpringboardFactory contract written (createSale, getSale, getAllSales, pause, admin transfer)
-- [ ] Clone pattern or proxy wiring confirmed
-- [ ] Factory unit tests written and passing
-- [ ] Integration tests across Factory → ProjectSale → Vesting
-- [ ] Security guardrails verified (multisig roles, no fund movement by backend admin, locked config)
+- [x] SpringboardFactory contract written (createSale, getSale, getAllSales, pause, admin transfer) — ✅ 2026-07-10
+- [x] Clone pattern or proxy wiring confirmed — ✅ 2026-07-10 (decided direct deployment over clones — ProjectSale's immutable config is incompatible with EIP-1167 proxies; setImplementation kept as reserved slot for future use)
+- [x] Factory unit tests written and passing (21/21) — ✅ 2026-07-10
+- [x] Integration tests across Factory → ProjectSale → Vesting (5/5) — ✅ 2026-07-10
+- [x] Security guardrails verified (multisig roles, no fund movement by backend admin, locked config) — ✅ 2026-07-10
 
 ### Goal for call
 All three contracts working together end-to-end, integration tests green.
@@ -74,5 +74,5 @@ Full Milestone 1 demo-ready. All deliverables handed off.
 |--------|------|--------|--------|
 | Week 1 | Jun 26 | Setup + Vesting | ✅ Complete |
 | Week 2 | Jul 3 | ProjectSale | ✅ Complete |
-| Week 3 | Jul 10 | Factory + Integration | Upcoming |
+| Week 3 | Jul 10 | Factory + Integration | ✅ Complete |
 | Week 4 | Jul 17 | Deploy + Handoff | Upcoming |
