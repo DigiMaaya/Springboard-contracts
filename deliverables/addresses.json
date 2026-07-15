@@ -1,0 +1,32 @@
+{
+  "network": "BSC Testnet",
+  "chainId": 97,
+  "deployedAt": "2026-07-15T17:09:42.017Z",
+  "note": "Testnet validation deployment. Mainnet deployment requires the multisig setup described in docs/HANDOFF.md before going live.",
+  "contracts": {
+    "SpringboardFactory": {
+      "address": "0x2acCe2C92BdCb5735FDDda57FBA7758f851fE8ab",
+      "explorer": "https://testnet.bscscan.com/address/0x2acCe2C92BdCb5735FDDda57FBA7758f851fE8ab#code"
+    },
+    "ProjectSale_Project1": {
+      "address": "0xd599d8305519146D64B447870D7860966E67d7c5",
+      "explorer": "https://testnet.bscscan.com/address/0xd599d8305519146D64B447870D7860966E67d7c5#code",
+      "note": "Deployed via SpringboardFactory.createSale() for projectId 1. Each project gets its own ProjectSale address — query SpringboardFactory.getSale(projectId) for others."
+    },
+    "VestingContract_Project1": {
+      "address": "0x0a9Ebb15230550D46cC8c3f74635103a65397aAE",
+      "explorer": "https://testnet.bscscan.com/address/0x0a9Ebb15230550D46cC8c3f74635103a65397aAE#code",
+      "note": "One VestingContract per project, deployed independently and linked to its ProjectSale by address. Not deployed by the Factory."
+    },
+    "MockUSDC_paymentToken": {
+      "address": "0xeb8851C0C19b57263108a45eF8526919932F1F94",
+      "explorer": "https://testnet.bscscan.com/address/0xeb8851C0C19b57263108a45eF8526919932F1F94#code",
+      "note": "Testnet-only mock. On mainnet, paymentToken will be the real USDC/USDT contract address instead."
+    },
+    "MockProjectToken": {
+      "address": "0xf4B101e98B8aAe55d9D40B0dEc7A1205357e079c",
+      "explorer": "https://testnet.bscscan.com/address/0xf4B101e98B8aAe55d9D40B0dEc7A1205357e079c#code",
+      "note": "Testnet-only mock standing in for a real project's token."
+    }
+  }
+}

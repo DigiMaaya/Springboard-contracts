@@ -57,7 +57,7 @@ is actually a multisig* — that's on whoever runs the deployment script.
 
 ## Status of other guardrails (for reference)
 
-These are implemented in code and covered by tests — see `CHECKLIST.md`
+These are implemented in code and covered by tests — see [CHECKLIST.md](./CHECKLIST.md)
 Section 4 for the full list:
 - Backend admin role cannot move or withdraw funds (only `MULTISIG_ROLE` can
   call `emergencyWithdraw()`, and it always sends to the immutable treasury)
@@ -76,5 +76,5 @@ Section 4 for the full list:
 4. Deploy `VestingContract` per project as needed, with allocations set only
    after the sale is finalized.
 
-See `CHECKLIST.md` Section 7 (Deployment) for the remaining deployment
+See [CHECKLIST.md](./CHECKLIST.md) Section 7 (Deployment) for the remaining deployment
 scripts, ABI export, and address documentation deliverables.

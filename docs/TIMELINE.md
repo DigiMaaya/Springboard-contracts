@@ -53,15 +53,15 @@ All three contracts working together end-to-end, integration tests green.
 ---
 
 ## Friday 4 — July 17, 2026 | Deployment & Handoff
-> Status: Upcoming
+> Status: ✅ Complete
 
 ### Deliverables
-- [ ] All contracts deployed and verified on testnet
-- [ ] Deployment scripts finalized for all three contracts
-- [ ] Contract ABIs exported
-- [ ] Contract addresses documented
-- [ ] ABI + address handoff package ready for backend team
-- [ ] Final checklist review — all items checked off
+- [x] All contracts deployed and verified on testnet — ✅ 2026-07-15 (BSC Testnet, all 5 contracts verified on BscScan)
+- [x] Deployment scripts finalized for all three contracts — ✅ 2026-07-15 (`scripts/deploy.js`)
+- [x] Contract ABIs exported — ✅ 2026-07-15 (`deliverables/abis/`)
+- [x] Contract addresses documented — ✅ 2026-07-15 (`deliverables/addresses.json`)
+- [x] ABI + address handoff package ready for backend team — ✅ 2026-07-15 (`deliverables/`, plus full contract docs in `docs/`)
+- [x] Final checklist review — all items checked off — ✅ 2026-07-15
 
 ### Goal for call
 Full Milestone 1 demo-ready. All deliverables handed off.
@@ -75,4 +75,4 @@ Full Milestone 1 demo-ready. All deliverables handed off.
 | Week 1 | Jun 26 | Setup + Vesting | ✅ Complete |
 | Week 2 | Jul 3 | ProjectSale | ✅ Complete |
 | Week 3 | Jul 10 | Factory + Integration | ✅ Complete |
-| Week 4 | Jul 17 | Deploy + Handoff | Upcoming |
+| Week 4 | Jul 17 | Deploy + Handoff | ✅ Complete |

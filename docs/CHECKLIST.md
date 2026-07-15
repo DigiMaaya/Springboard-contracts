@@ -58,8 +58,8 @@
 
 ## 4. Security & Guardrails
 
-- [ ] Factory owner is a multisig wallet — **operational task, not code.** See `HANDOFF.md` for details; must be set up by the receiving team before mainnet deployment.
-- [ ] Treasury wallet is a multisig wallet — **operational task, not code.** See `HANDOFF.md` for details; must be set up by the receiving team before mainnet deployment.
+- [ ] Factory owner is a multisig wallet — **operational task, not code.** See [HANDOFF.md](./HANDOFF.md) for details; must be set up by the receiving team before mainnet deployment.
+- [ ] Treasury wallet is a multisig wallet — **operational task, not code.** See [HANDOFF.md](./HANDOFF.md) for details; must be set up by the receiving team before mainnet deployment.
 - [x] Backend admin role cannot directly move or withdraw funds — ✅ 2026-06-29 (ProjectSale: emergencyWithdraw is MULTISIG_ROLE-only, destination fixed to treasury)
 - [x] Project founder cannot modify sale parameters post-deployment without explicit admin approval — ✅ 2026-06-29 (ProjectSale config is immutable)
 - [x] Emergency pause available at contract level — ✅ 2026-06-29
@@ -102,8 +102,8 @@
 - [x] ProjectSale deployed and verified — ✅ 2026-07-15 (BSC Testnet, `0xd599d8305519146D64B447870D7860966E67d7c5`)
 - [x] VestingContract deployed and verified — ✅ 2026-07-15 (BSC Testnet, `0x0a9Ebb15230550D46cC8c3f74635103a65397aAE`)
 - [x] Deployment scripts provided for all contracts — ✅ 2026-07-15 (`scripts/deploy.js` — clean deploy, no activity performed)
-- [ ] Contract ABIs exported and documented
-- [x] Contract addresses documented — ✅ 2026-07-15 (`deployments/bscTestnet.json`)
-- [ ] ABI + address handoff package ready for backend team
+- [x] Contract ABIs exported and documented — ✅ 2026-07-15 (`deliverables/abis/*.json`, documented in `deliverables/README.md`)
+- [x] Contract addresses documented — ✅ 2026-07-15 (`deployments/bscTestnet.json`, `deliverables/addresses.json`)
+- [x] ABI + address handoff package ready for backend team — ✅ 2026-07-15 (`deliverables/` folder, plus full docs in `docs/`)
 
-> **Note:** this is a BSC Testnet deployment for validation purposes. Mainnet deployment requires the multisig setup described in `HANDOFF.md` first. Verified contract source: see BscScan testnet links in `deployments/bscTestnet.json` addresses above.
+> **Note:** this is a BSC Testnet deployment for validation purposes. Mainnet deployment requires the multisig setup described in [HANDOFF.md](./HANDOFF.md) first. Verified contract source: see BscScan testnet links in [`../deployments/bscTestnet.json`](../deployments/bscTestnet.json) and the handoff-ready [`../deliverables/addresses.json`](../deliverables/addresses.json).
