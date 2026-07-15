@@ -13,7 +13,7 @@ Handles one project's fundraising: contributions, caps, whitelist enforcement, r
 
 `ADMIN_ROLE` **cannot** call `emergencyWithdraw`: that's deliberate. See [SECURITY.md](./SECURITY.md).
 
-## Constructor / immutable config
+## Constructor and immutable config
 
 All sale parameters are set once, at deployment, via a `SaleParams` struct, and stored as Solidity `immutable` variables. **Nothing here can ever change after deployment**: not by the admin, not by anyone:
 
@@ -67,7 +67,7 @@ Query the current state via `getSaleStatus()`.
 | `WhitelistRootUpdated(oldRoot, newRoot, timestamp)` | `setWhitelistRoot` |
 | `EmergencyWithdraw(by, amount, timestamp)` | `emergencyWithdraw` |
 
-## Whitelist & Merkle proofs
+## Whitelist and Merkle proofs
 
 `contribute()` takes a `bytes32[] merkleProof` parameter **even when `whitelistRequired` is `false`**: pass `[]` in that case. This differs slightly from the original spec's abbreviated `contribute(amount)` signature; the extra parameter is required to support the whitelist feature also listed in the spec.
 

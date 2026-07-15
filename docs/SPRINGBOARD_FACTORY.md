@@ -55,7 +55,7 @@ struct CreateSaleParams {
 }
 ```
 
-Every field is forwarded straight into the new `ProjectSale`'s constructor: see [PROJECT_SALE.md](./PROJECT_SALE.md#constructor--immutable-config) for what each one locks in. `vestingContract` must be deployed **before** calling `createSale` (the Factory does not deploy vesting contracts: see [ARCHITECTURE.md](./ARCHITECTURE.md)).
+Every field is forwarded straight into the new `ProjectSale`'s constructor: see [PROJECT_SALE.md](./PROJECT_SALE.md#constructor-and-immutable-config) for what each one locks in. `vestingContract` must be deployed **before** calling `createSale` (the Factory does not deploy vesting contracts: see [ARCHITECTURE.md](./ARCHITECTURE.md)).
 
 The caller of `createSale` (`msg.sender`) automatically becomes the new sale's `ADMIN_ROLE` holder.
 

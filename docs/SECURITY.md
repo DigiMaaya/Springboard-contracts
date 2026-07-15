@@ -35,7 +35,7 @@ These are operational requirements for whoever deploys to mainnet: see [HANDOFF.
 | Deviation | Reason | Confirmed |
 |---|---|---|
 | `SpringboardFactory` deploys `ProjectSale` directly, not via clone/proxy pattern | Immutable sale config is incompatible with minimal-proxy clones; also gives a stronger "locked at deployment" guarantee | 2026-07-10 |
-| `contribute(amount)` → actual signature is `contribute(amount, bytes32[] merkleProof)` | Required to support the whitelist feature also listed in the spec | see [PROJECT_SALE.md](./PROJECT_SALE.md#whitelist--merkle-proofs) |
+| `contribute(amount)` → actual signature is `contribute(amount, bytes32[] merkleProof)` | Required to support the whitelist feature also listed in the spec | see [PROJECT_SALE.md](./PROJECT_SALE.md#whitelist-and-merkle-proofs) |
 | Vesting terms (TGE%, cliff, duration, interval, start date) are global per `VestingContract`, not per-beneficiary | Simplifies the common case (uniform terms per project); different terms require a separate `VestingContract` deployment | 2026-07-10 |
 | `setImplementation()` on the Factory has no functional effect on deployment | Reserved for a possible future clone-based upgrade path; kept for spec's literal function/event list | 2026-07-10 |
 
