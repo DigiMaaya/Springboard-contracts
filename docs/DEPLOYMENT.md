@@ -23,33 +23,45 @@ Configured in `hardhat.config.js`:
 | Network | Chain ID | Use |
 |---|---|---|
 | `hardhat` | n/a | local, ephemeral, used for the test suite |
-| `bscTestnet` | 97 | testnet validation deployments |
-| `sepolia` | 11155111 | (configured, unused so far) |
+| `bscTestnet` | 97 | testnet deployments |
 
 ## Deploying
 
-`scripts/deploy.js` performs a **clean deployment with no post-deploy activity**:
-1. Deploys mock `paymentToken` and `projectToken` (testnet only: see [note below](#mainnet-differences))
-2. Deploys `VestingContract`
-3. Deploys `SpringboardFactory`
-4. Registers one `ProjectSale` via `factory.createSale()`
-5. Writes a deployment record to `deployments/<network>.json` (addresses + constructor args, for use in verification and the ABI/address handoff package)
-
-It does **not** call `contribute`, `finalizeSale`, `claimRefund`, `setAllocations`, or `claim`: those are left for whoever actually runs the project's sale.
-
-```bash
-npx hardhat compile
-npx hardhat run scripts/deploy.js --network bscTestnet
-```
-
-Check the deployer's balance first if unsure it has enough gas:
+There are three deployment scripts, for three different purposes. Check the deployer's balance first if unsure it has enough gas:
 ```bash
 npx hardhat run scripts/checkBalance.js --network bscTestnet
 ```
 
-### End-to-end validation (optional, testnet only)
+### Production pattern: `scripts/deploySpringboardFactory.js`
 
-`scripts/deployAndTestBscTestnet.js` deploys a fresh set of contracts *and* walks the full lifecycle live on-chain (contribute → finalize → vesting allocation → claim), using short time windows so it completes in a few minutes. Useful for confirming the whole system works together on a live network before doing a "real" deployment, but it does perform full sale activity: don't run it against contracts you intend to actually use.
+This is the **real deployment pattern**. `SpringboardFactory` is a platform-level contract, deployed **once**. Each project's `ProjectSale` and `VestingContract` are created **later**, on demand, as a separate operational step, whenever an actual project is ready to launch — not bundled into the platform deployment.
+
+```bash
+npx hardhat compile
+npx hardhat run scripts/deploySpringboardFactory.js --network bscTestnet
+```
+
+Set `FACTORY_ADMIN` in `.env` to deploy with a specific admin address (this **must be a multisig on mainnet**, see [HANDOFF.md](./HANDOFF.md)). If unset, defaults to the deployer's own address, which is only appropriate for testnet.
+
+Writes a deployment record to `deployments/<network>-factory.json`.
+
+**Creating a project's sale afterward** (separate step, whenever a project launches): deploy that project's `VestingContract` independently, then call `factory.createSale({...})` with the vesting address included, using the Factory address from the deployment record above.
+
+### Demo / reference: `scripts/deployWithSampleProject.js`
+
+Deploys the full stack — mocks, `VestingContract`, `SpringboardFactory` — **and** registers one sample/dummy `ProjectSale` via `createSale()`, so you have working instances of all three contract types to inspect or verify. Performs no further activity (no `contribute`, `finalizeSale`, `claimRefund`, `setAllocations`, or `claim`).
+
+This is **not** the production pattern above — it exists for demos, walkthroughs, and to satisfy "all three contracts deployed and verified" style acceptance criteria on testnet.
+
+```bash
+npx hardhat run scripts/deployWithSampleProject.js --network bscTestnet
+```
+
+Writes a deployment record to `deployments/<network>.json`.
+
+### Full end-to-end validation: `scripts/deployAndTestBscTestnet.js`
+
+Deploys a fresh set of contracts *and* walks the full lifecycle live on-chain (contribute → finalize → vesting allocation → claim), using short time windows so it completes in a few minutes. Useful for confirming the whole system works together on a live network after a code change, but it performs full sale activity: don't run it against contracts you intend to actually use.
 
 ```bash
 npx hardhat run scripts/deployAndTestBscTestnet.js --network bscTestnet

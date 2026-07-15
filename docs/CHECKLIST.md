@@ -101,7 +101,7 @@
 - [x] SpringboardFactory deployed and verified: ✅ 2026-07-15 (BSC Testnet, `0x2acCe2C92BdCb5735FDDda57FBA7758f851fE8ab`)
 - [x] ProjectSale deployed and verified: ✅ 2026-07-15 (BSC Testnet, `0xd599d8305519146D64B447870D7860966E67d7c5`)
 - [x] VestingContract deployed and verified: ✅ 2026-07-15 (BSC Testnet, `0x0a9Ebb15230550D46cC8c3f74635103a65397aAE`)
-- [x] Deployment scripts provided for all contracts: ✅ 2026-07-15 (`scripts/deploy.js`: clean deploy, no activity performed)
+- [x] Deployment scripts provided for all contracts: ✅ 2026-07-15 (`scripts/deploySpringboardFactory.js` for the production pattern, `scripts/deployWithSampleProject.js` for full-stack demo deployment)
 - [x] Contract ABIs exported and documented: ✅ 2026-07-15 (`deliverables/abis/*.json`, documented in `deliverables/README.md`)
 - [x] Contract addresses documented: ✅ 2026-07-15 (`deployments/bscTestnet.json`, `deliverables/addresses.json`)
 - [x] ABI + address handoff package ready for backend team: ✅ 2026-07-15 (`deliverables/` folder, plus full docs in `docs/`)

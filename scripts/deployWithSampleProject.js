@@ -4,14 +4,19 @@ const fs = require("fs");
 const path = require("path");
 
 /**
- * Clean deployment script — deploys all contracts and registers one sale,
- * but performs NO further activity (no contribute, finalize, refund,
- * setAllocations, or claim calls). Intended as the real deployment pass,
- * separate from the earlier deploy+E2E-test run.
+ * Deploys the full contract stack (mocks, VestingContract, SpringboardFactory)
+ * AND registers one sample/dummy ProjectSale via createSale(), for demo and
+ * reference purposes. Performs no further activity beyond that (no contribute,
+ * finalize, refund, setAllocations, or claim calls).
+ *
+ * This is NOT the real production deployment pattern. In production,
+ * SpringboardFactory is deployed once (see deploySpringboardFactory.js) and
+ * each project's ProjectSale/VestingContract are created later, on demand,
+ * as a separate operational step, not bundled into the platform deployment.
  */
 async function main() {
   const [deployer] = await ethers.getSigners();
-  console.log("=== Springboard Launchpad — Deployment ===");
+  console.log("=== Springboard Launchpad: Deployment with Sample Project ===");
   console.log("Network:", hre.network.name);
   console.log("Deployer:", deployer.address);
   console.log("Balance:", ethers.formatEther(await ethers.provider.getBalance(deployer.address)), "tBNB");

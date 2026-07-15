@@ -33,7 +33,7 @@ For what each function/event does, see the full docs in [`../docs/`](../docs/): 
 If contracts are redeployed or changed, regenerate both files:
 
 ```bash
-# after running scripts/deploy.js, re-extract ABIs from fresh artifacts:
+# after running scripts/deployWithSampleProject.js, re-extract ABIs from fresh artifacts:
 node -e "
 const fs = require('fs');
 const contracts = [

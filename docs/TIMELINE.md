@@ -57,7 +57,7 @@ All three contracts working together end-to-end, integration tests green.
 
 ### Deliverables
 - [x] All contracts deployed and verified on testnet: ✅ 2026-07-15 (BSC Testnet, all 5 contracts verified on BscScan)
-- [x] Deployment scripts finalized for all three contracts: ✅ 2026-07-15 (`scripts/deploy.js`)
+- [x] Deployment scripts finalized for all three contracts: ✅ 2026-07-15 (`scripts/deploySpringboardFactory.js`, `scripts/deployWithSampleProject.js`)
 - [x] Contract ABIs exported: ✅ 2026-07-15 (`deliverables/abis/`)
 - [x] Contract addresses documented: ✅ 2026-07-15 (`deliverables/addresses.json`)
 - [x] ABI + address handoff package ready for backend team: ✅ 2026-07-15 (`deliverables/`, plus full contract docs in `docs/`)
