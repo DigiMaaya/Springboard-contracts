@@ -56,8 +56,8 @@
 
 ## 4. Security & Guardrails
 
-- [ ] Factory owner is a multisig wallet
-- [ ] Treasury wallet is a multisig wallet
+- [ ] Factory owner is a multisig wallet — **operational task, not code.** See `HANDOFF.md` for details; must be set up by the receiving team before mainnet deployment.
+- [ ] Treasury wallet is a multisig wallet — **operational task, not code.** See `HANDOFF.md` for details; must be set up by the receiving team before mainnet deployment.
 - [x] Backend admin role cannot directly move or withdraw funds — ✅ 2026-06-29 (ProjectSale: emergencyWithdraw is MULTISIG_ROLE-only, destination fixed to treasury)
 - [x] Project founder cannot modify sale parameters post-deployment without explicit admin approval — ✅ 2026-06-29 (ProjectSale config is immutable)
 - [x] Emergency pause available at contract level — ✅ 2026-06-29
