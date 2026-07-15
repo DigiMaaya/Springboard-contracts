@@ -2,7 +2,7 @@
 
 `contracts/VestingContract.sol`
 
-Manages token distribution after a sale succeeds: a TGE unlock, a cliff, then linear release over fixed intervals. One deployed per project, **independently** — the Factory does not deploy or manage vesting contracts. See [ARCHITECTURE.md](./ARCHITECTURE.md).
+Manages token distribution after a sale succeeds: a TGE unlock, a cliff, then linear release over fixed intervals. One deployed per project, **independently**: the Factory does not deploy or manage vesting contracts. See [ARCHITECTURE.md](./ARCHITECTURE.md).
 
 ## Roles
 
@@ -26,7 +26,7 @@ constructor(
 
 Reverts: `ZeroAddress()` (`_token` or `_admin`), `"TGE percent exceeds 100"`, `"Interval must be > 0"`, `"Duration < interval"`.
 
-**Important — these five parameters are global to the whole contract, not per-beneficiary.** Every investor allocated through this `VestingContract` shares the identical TGE%, cliff, duration, interval, and start date; only the allocation *amount* varies per person (set via `setAllocations`). This was reviewed and confirmed with the client on 2026-07-10. If a project needs different vesting terms for different investor groups (e.g. advisors vs public investors), deploy a **separate `VestingContract`** for each group.
+**Important: these five parameters are global to the whole contract, not per-beneficiary.** Every investor allocated through this `VestingContract` shares the identical TGE%, cliff, duration, interval, and start date; only the allocation *amount* varies per person (set via `setAllocations`). This was reviewed and confirmed with the client on 2026-07-10. If a project needs different vesting terms for different investor groups (e.g. advisors vs public investors), deploy a **separate `VestingContract`** for each group.
 
 ## Functions
 
@@ -54,7 +54,7 @@ Reverts: `ZeroAddress()` (`_token` or `_admin`), `"TGE percent exceeds 100"`, `"
 - **At `vestingStartDate`**: `tgePercent` of the allocation unlocks immediately.
 - **During the cliff** (`vestingStartDate` → `vestingStartDate + cliffDuration`): nothing more unlocks, no matter how much time passes.
 - **After the cliff**, the remaining `100% - tgePercent` unlocks linearly, in discrete steps every `vestingInterval` seconds, until `vestingDuration` has fully elapsed.
-- `claim()` can be called any number of times — it always transfers whatever has newly unlocked since the last claim.
+- `claim()` can be called any number of times: it always transfers whatever has newly unlocked since the last claim.
 
 ## Events
 
@@ -64,14 +64,14 @@ Reverts: `ZeroAddress()` (`_token` or `_admin`), `"TGE percent exceeds 100"`, `"
 | `AllocationsLocked(timestamp)` | `lockAllocations` | |
 | `TokensClaimed(beneficiary, amount, timestamp)` | `claim` | |
 
-Note: `pauseVesting()`/`unpauseVesting()` do not emit custom events — they rely on OpenZeppelin's built-in `Paused(account)`/`Unpaused(account)` events from the `Pausable` base contract, unlike `ProjectSale`'s pause functions which emit both. This is a minor styling inconsistency, not a functional gap (the events still fire, just under OZ's generic names).
+Note: `pauseVesting()`/`unpauseVesting()` do not emit custom events: they rely on OpenZeppelin's built-in `Paused(account)`/`Unpaused(account)` events from the `Pausable` base contract, unlike `ProjectSale`'s pause functions which emit both. This is a minor styling inconsistency, not a functional gap (the events still fire, just under OZ's generic names).
 
 ## Example usage
 
 ```js
 const vesting = await ethers.getContractAt("VestingContract", vestingAddress);
 
-// admin, after the sale finalizes — compute allocations off-chain from
+// admin, after the sale finalizes: compute allocations off-chain from
 // ProjectSale.getUserContribution(user) / tokenPrice
 await vesting.setAllocations(
   [investor1, investor2],

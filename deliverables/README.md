@@ -1,6 +1,6 @@
 # Deliverables
 
-Handoff package for the backend team — everything needed to integrate with the deployed contracts, without reading Solidity source.
+Handoff package for the backend team: everything needed to integrate with the deployed contracts, without reading Solidity source.
 
 ## Contents
 
@@ -26,7 +26,7 @@ const factory = new ethers.Contract(
 );
 ```
 
-For what each function/event does, see the full docs in [`../docs/`](../docs/) — start with [`../docs/ARCHITECTURE.md`](../docs/ARCHITECTURE.md).
+For what each function/event does, see the full docs in [`../docs/`](../docs/): start with [`../docs/ARCHITECTURE.md`](../docs/ARCHITECTURE.md).
 
 ## Keeping this up to date
 

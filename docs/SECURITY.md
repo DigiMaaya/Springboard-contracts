@@ -13,22 +13,22 @@ The critical separation: **`ADMIN_ROLE` on `ProjectSale` cannot call `emergencyW
 
 ## Fund-movement guarantees
 
-- `finalizeSale()` and `emergencyWithdraw()` both send funds to `treasury` — an **immutable** address set once at `ProjectSale` deployment. There is no function anywhere in the contract that can redirect funds to any other address, by anyone, ever.
+- `finalizeSale()` and `emergencyWithdraw()` both send funds to `treasury`: an **immutable** address set once at `ProjectSale` deployment. There is no function anywhere in the contract that can redirect funds to any other address, by anyone, ever.
 - All fund-handling functions (`contribute`, `claimRefund`, `finalizeSale`, `emergencyWithdraw`, `claim`) use OpenZeppelin's `nonReentrant` modifier.
-- All token transfers use OpenZeppelin's `SafeERC20` — no raw `.transfer()`/`.transferFrom()` calls anywhere in the codebase.
+- All token transfers use OpenZeppelin's `SafeERC20`: no raw `.transfer()`/`.transferFrom()` calls anywhere in the codebase.
 
 ## Immutability
 
-Every sale parameter on `ProjectSale` (caps, times, treasury, token addresses, price, allocation, flags) is a Solidity `immutable`, set once in the constructor. **No function exists to change any of them after deployment** — not the admin, not the founder, not anyone. This is a stronger guarantee than "requires approval to change": the change path simply doesn't exist in the contract.
+Every sale parameter on `ProjectSale` (caps, times, treasury, token addresses, price, allocation, flags) is a Solidity `immutable`, set once in the constructor. **No function exists to change any of them after deployment**: not the admin, not the founder, not anyone. This is a stronger guarantee than "requires approval to change": the change path simply doesn't exist in the contract.
 
-## Multisig requirements — not enforced in code
+## Multisig requirements: not enforced in code
 
 Two guardrails from the original spec **cannot be enforced by the smart contracts themselves**, because Solidity cannot verify that an address is a multisig (e.g. a Gnosis Safe) versus a regular single-key wallet:
 
 - **`SpringboardFactory`'s admin must be a multisig.**
 - **Each `ProjectSale`'s `treasury` must be a multisig.**
 
-These are operational requirements for whoever deploys to mainnet — see [HANDOFF.md](./HANDOFF.md) for the full explanation and what's required before going live.
+These are operational requirements for whoever deploys to mainnet: see [HANDOFF.md](./HANDOFF.md) for the full explanation and what's required before going live.
 
 ## Known deviations from the original spec (all reviewed and confirmed)
 
