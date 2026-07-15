@@ -64,10 +64,34 @@ Simple constructors (flat args):
 npx hardhat verify --network bscTestnet <address> <constructor-arg-1> <constructor-arg-2> ...
 ```
 
-`ProjectSale` takes a single struct argument, which the CLI can't express as flat args: use a constructor-args file instead (see `scripts/verify-args/projectSale.js` for a working example):
-```bash
-npx hardhat verify --network bscTestnet --constructor-args scripts/verify-args/projectSale.js <address>
+`ProjectSale` takes a single struct argument, which the CLI can't express as flat args: use a constructor-args file instead. Create a small JS file exporting the exact `SaleParams` struct used for that deployment (values available in `deployments/<network>.json`), for example:
+```js
+// verify-args.js
+module.exports = [
+  {
+    projectId: 1,
+    tokenAddress: "0x...",
+    paymentToken: "0x...",
+    treasury: "0x...",
+    startTime: 1234567890,
+    endTime: 1234567890,
+    softCap: "1000000000000000000000",
+    hardCap: "5000000000000000000000",
+    minContribution: "10000000000000000000",
+    maxContribution: "2000000000000000000000",
+    tokenPrice: "500000000000000000",
+    totalAllocation: "10000000000000000000000",
+    vestingContract: "0x...",
+    refundEnabled: true,
+    whitelistRequired: false,
+    admin: "0x...",
+  },
+];
 ```
+```bash
+npx hardhat verify --network bscTestnet --constructor-args verify-args.js <address>
+```
+Treat this file as throwaway per-deployment scratch work, not a committed artifact — it goes stale the moment a new sale is created with different parameters.
 
 If BscScan reports a contract as "already verified" on a fresh deployment, that's normal: it means the bytecode is byte-for-byte identical to a contract it already has source for (common for the unmodified `ERC20Mock`).
 
