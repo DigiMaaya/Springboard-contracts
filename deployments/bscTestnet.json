@@ -1,0 +1,55 @@
+{
+  "network": "bscTestnet",
+  "chainId": "97",
+  "deployer": "0x78cCEa976E2CcfaBB5B1Ccd81249B40b80169c6a",
+  "deployedAt": "2026-07-15T17:09:42.017Z",
+  "addresses": {
+    "paymentToken": "0xeb8851C0C19b57263108a45eF8526919932F1F94",
+    "projectToken": "0xf4B101e98B8aAe55d9D40B0dEc7A1205357e079c",
+    "vesting": "0x0a9Ebb15230550D46cC8c3f74635103a65397aAE",
+    "factory": "0x2acCe2C92BdCb5735FDDda57FBA7758f851fE8ab",
+    "sale": "0xd599d8305519146D64B447870D7860966E67d7c5"
+  },
+  "constructorArgs": {
+    "paymentToken": [
+      "Mock USDC",
+      "mUSDC",
+      "1000000000000000000000000"
+    ],
+    "projectToken": [
+      "Mock Project Token",
+      "mPRJ",
+      "1000000000000000000000000"
+    ],
+    "vesting": [
+      "0xf4B101e98B8aAe55d9D40B0dEc7A1205357e079c",
+      "0x78cCEa976E2CcfaBB5B1Ccd81249B40b80169c6a",
+      10,
+      2592000,
+      15552000,
+      2592000,
+      1786727371
+    ],
+    "factory": [
+      "0x78cCEa976E2CcfaBB5B1Ccd81249B40b80169c6a"
+    ],
+    "sale": {
+      "projectId": 1,
+      "tokenAddress": "0xf4B101e98B8aAe55d9D40B0dEc7A1205357e079c",
+      "paymentToken": "0xeb8851C0C19b57263108a45eF8526919932F1F94",
+      "treasury": "0x78cCEa976E2CcfaBB5B1Ccd81249B40b80169c6a",
+      "startTime": 1784221771,
+      "endTime": 1784826571,
+      "softCap": "1000000000000000000000",
+      "hardCap": "5000000000000000000000",
+      "minContribution": "10000000000000000000",
+      "maxContribution": "2000000000000000000000",
+      "tokenPrice": "500000000000000000",
+      "totalAllocation": "10000000000000000000000",
+      "vestingContract": "0x0a9Ebb15230550D46cC8c3f74635103a65397aAE",
+      "refundEnabled": true,
+      "whitelistRequired": false,
+      "admin": "0x78cCEa976E2CcfaBB5B1Ccd81249B40b80169c6a"
+    }
+  }
+}

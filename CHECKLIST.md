@@ -52,6 +52,8 @@
 - [x] `getVestingSchedule(user)` — returns full vesting schedule for a user — ✅ 2026-06-29
 - [x] `setAllocations(users[], amounts[])` — batch-sets investor allocations before vesting begins — ✅ 2026-06-29
 
+> **Note on per-beneficiary parameters:** spec section 1.3 lists TGE%, cliff duration, vesting duration, vesting interval, and vesting start date as "parameters per beneficiary." In this implementation, those are set **once globally** for the whole VestingContract at deployment — every beneficiary in a given project shares identical vesting terms; only `totalAllocation` varies per beneficiary via `setAllocations`. This was reviewed with the user on 2026-07-10 and confirmed to stay as-is for now. If a project later needs beneficiary-specific terms (e.g. advisors on a different schedule than public investors), that requires either a separate `VestingContract` deployment for that group, or a future contract change to accept per-beneficiary schedule params.
+
 ---
 
 ## 4. Security & Guardrails
@@ -96,10 +98,12 @@
 
 ## 7. Deployment
 
-- [ ] SpringboardFactory deployed and verified
-- [ ] ProjectSale deployed and verified
-- [ ] VestingContract deployed and verified
-- [ ] Deployment scripts provided for all contracts
+- [x] SpringboardFactory deployed and verified — ✅ 2026-07-15 (BSC Testnet, `0x2acCe2C92BdCb5735FDDda57FBA7758f851fE8ab`)
+- [x] ProjectSale deployed and verified — ✅ 2026-07-15 (BSC Testnet, `0xd599d8305519146D64B447870D7860966E67d7c5`)
+- [x] VestingContract deployed and verified — ✅ 2026-07-15 (BSC Testnet, `0x0a9Ebb15230550D46cC8c3f74635103a65397aAE`)
+- [x] Deployment scripts provided for all contracts — ✅ 2026-07-15 (`scripts/deploy.js` — clean deploy, no activity performed)
 - [ ] Contract ABIs exported and documented
-- [ ] Contract addresses documented
+- [x] Contract addresses documented — ✅ 2026-07-15 (`deployments/bscTestnet.json`)
 - [ ] ABI + address handoff package ready for backend team
+
+> **Note:** this is a BSC Testnet deployment for validation purposes. Mainnet deployment requires the multisig setup described in `HANDOFF.md` first. Verified contract source: see BscScan testnet links in `deployments/bscTestnet.json` addresses above.
