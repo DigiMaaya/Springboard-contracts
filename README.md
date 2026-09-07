@@ -10,7 +10,7 @@ Smart contract system for the Springboard token launchpad: Milestone 1. A permis
 | `ProjectSale` | Per-project fundraising: contributions, caps, whitelist, refunds, finalization | [`contracts/ProjectSale.sol`](./contracts/ProjectSale.sol) | [docs/PROJECT_SALE.md](./docs/PROJECT_SALE.md) |
 | `VestingContract` | Per-project token distribution: TGE unlock, cliff, linear vesting | [`contracts/VestingContract.sol`](./contracts/VestingContract.sol) | [docs/VESTING_CONTRACT.md](./docs/VESTING_CONTRACT.md) |
 
-Latest deployed addresses (BSC Testnet): [`deliverables/addresses.json`](./deliverables/addresses.json). ABIs: [`deliverables/abis/`](./deliverables/abis/).
+Latest deployed addresses (BSC Testnet, Ethereum Sepolia): [`deliverables/addresses.json`](./deliverables/addresses.json). ABIs: [`deliverables/abis/`](./deliverables/abis/).
 
 ## Documentation
 

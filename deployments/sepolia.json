@@ -1,0 +1,55 @@
+{
+  "network": "sepolia",
+  "chainId": "11155111",
+  "deployer": "0x0Fe68c895aafF3FD16d236A20c1F9113F26e7486",
+  "deployedAt": "2026-09-07T14:44:50.076Z",
+  "addresses": {
+    "paymentToken": "0xC9a30a72D170eDEaC768a67960564a89B2d5D33C",
+    "projectToken": "0x15e558c7381E77599A46552BaA7E47eEa80b8067",
+    "vesting": "0x54F344d4ce328B6E321821D687f3F8634425623e",
+    "factory": "0xcE5380800454780eF43a97F2A7548051Bc604F1E",
+    "sale": "0x894C4322E13347f4D7688f029e06E9c8ff755Dfc"
+  },
+  "constructorArgs": {
+    "paymentToken": [
+      "Mock USDC",
+      "mUSDC",
+      "1000000000000000000000000"
+    ],
+    "projectToken": [
+      "Mock Project Token",
+      "mPRJ",
+      "1000000000000000000000000"
+    ],
+    "vesting": [
+      "0x15e558c7381E77599A46552BaA7E47eEa80b8067",
+      "0x0Fe68c895aafF3FD16d236A20c1F9113F26e7486",
+      10,
+      2592000,
+      15552000,
+      2592000,
+      1791384252
+    ],
+    "factory": [
+      "0x0Fe68c895aafF3FD16d236A20c1F9113F26e7486"
+    ],
+    "sale": {
+      "projectId": 1,
+      "tokenAddress": "0x15e558c7381E77599A46552BaA7E47eEa80b8067",
+      "paymentToken": "0xC9a30a72D170eDEaC768a67960564a89B2d5D33C",
+      "treasury": "0x0Fe68c895aafF3FD16d236A20c1F9113F26e7486",
+      "startTime": 1788878652,
+      "endTime": 1789483452,
+      "softCap": "1000000000000000000000",
+      "hardCap": "5000000000000000000000",
+      "minContribution": "10000000000000000000",
+      "maxContribution": "2000000000000000000000",
+      "tokenPrice": "500000000000000000",
+      "totalAllocation": "10000000000000000000000",
+      "vestingContract": "0x54F344d4ce328B6E321821D687f3F8634425623e",
+      "refundEnabled": true,
+      "whitelistRequired": false,
+      "admin": "0x0Fe68c895aafF3FD16d236A20c1F9113F26e7486"
+    }
+  }
+}

@@ -10,8 +10,14 @@ npm install
 Create a `.env` file in the project root (gitignored: never commit this):
 ```bash
 BSC_TESTNET_RPC_URL=<your RPC endpoint, e.g. from Alchemy>
-DEPLOYER_PRIVATE_KEY=<deployer wallet private key>
+DEPLOYER_PRIVATE_KEY=<BSC deployer wallet private key>
 BSCSCAN_API_KEY=<API key from bscscan.com, for source verification>
+
+# Sepolia uses a separate deployer key from BSC — a different EOA was used for
+# the current live deployment. SEPOLIA_RPC_URL defaults to a public endpoint
+# (https://ethereum-sepolia-rpc.publicnode.com) if unset.
+SEPOLIA_RPC_URL=<optional, defaults to a public RPC if unset>
+SEPOLIA_DEPLOYER_PRIVATE_KEY=<Sepolia deployer wallet private key>
 ```
 
 **Never paste private keys directly into chat/logs.** Put them straight into `.env`. Treat any key that has appeared in a chat transcript, terminal log, or screen share as compromised: rotate away from it for anything beyond disposable testnet use.
@@ -24,12 +30,14 @@ Configured in `hardhat.config.js`:
 |---|---|---|
 | `hardhat` | n/a | local, ephemeral, used for the test suite |
 | `bscTestnet` | 97 | testnet deployments |
+| `sepolia` | 11155111 | testnet deployments (Ethereum) |
 
 ## Deploying
 
-There are three deployment scripts, for three different purposes. Check the deployer's balance first if unsure it has enough gas:
+There are three deployment scripts, for three different purposes. All scripts are network-agnostic (driven by `hardhat.config.js`'s `--network` flag), so any of them can be run against `bscTestnet` or `sepolia` interchangeably. Check the deployer's balance first if unsure it has enough gas:
 ```bash
 npx hardhat run scripts/checkBalance.js --network bscTestnet
+npx hardhat run scripts/checkBalance.js --network sepolia
 ```
 
 ### Production pattern: `scripts/deploySpringboardFactory.js`
@@ -69,11 +77,12 @@ npx hardhat run scripts/deployAndTestBscTestnet.js --network bscTestnet
 
 ## Verifying contracts on the block explorer
 
-Uses the unified Etherscan V2 API (a single `BSCSCAN_API_KEY` works across supported chains, configured as a flat string in `hardhat.config.js`'s `etherscan.apiKey`, not a per-network object).
+Uses the unified Etherscan V2 API (a single `BSCSCAN_API_KEY` works across supported chains, including Sepolia, configured as a flat string in `hardhat.config.js`'s `etherscan.apiKey`, not a per-network object).
 
 Simple constructors (flat args):
 ```bash
 npx hardhat verify --network bscTestnet <address> <constructor-arg-1> <constructor-arg-2> ...
+npx hardhat verify --network sepolia <address> <constructor-arg-1> <constructor-arg-2> ...
 ```
 
 `ProjectSale` takes a single struct argument, which the CLI can't express as flat args: use a constructor-args file instead. Create a small JS file exporting the exact `SaleParams` struct used for that deployment (values available in `deployments/<network>.json`), for example:

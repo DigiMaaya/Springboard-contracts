@@ -105,5 +105,6 @@
 - [x] Contract ABIs exported and documented: ✅ 2026-07-15 (`deliverables/abis/*.json`, documented in `deliverables/README.md`)
 - [x] Contract addresses documented: ✅ 2026-07-15 (`deployments/bscTestnet.json`, `deliverables/addresses.json`)
 - [x] ABI + address handoff package ready for backend team: ✅ 2026-07-15 (`deliverables/` folder, plus full docs in `docs/`)
+- [x] Second network (Ethereum Sepolia) deployed and verified: ✅ 2026-09-07 (SpringboardFactory `0xcE5380800454780eF43a97F2A7548051Bc604F1E`, ProjectSale `0x894C4322E13347f4D7688f029e06E9c8ff755Dfc`, VestingContract `0x54F344d4ce328B6E321821D687f3F8634425623e`)
 
-> **Note:** this is a BSC Testnet deployment for validation purposes. Mainnet deployment requires the multisig setup described in [HANDOFF.md](./HANDOFF.md) first. Verified contract source: see BscScan testnet links in [`../deployments/bscTestnet.json`](../deployments/bscTestnet.json) and the handoff-ready [`../deliverables/addresses.json`](../deliverables/addresses.json).
+> **Note:** these are testnet deployments for validation purposes (BSC Testnet and Ethereum Sepolia). Mainnet deployment requires the multisig setup described in [HANDOFF.md](./HANDOFF.md) first. Verified contract source: see BscScan/Etherscan testnet links in [`../deployments/bscTestnet.json`](../deployments/bscTestnet.json), [`../deployments/sepolia.json`](../deployments/sepolia.json), and the handoff-ready [`../deliverables/addresses.json`](../deliverables/addresses.json).
