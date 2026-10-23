@@ -1,0 +1,449 @@
+<title>Deploying SpringboardFactory to BSC Mainnet</title>
+<style>
+  :root {
+    --bg: #f3f1ec;
+    --surface: #ffffff;
+    --surface-sunken: #eae7df;
+    --border: #dcd8cd;
+    --text: #1c1c1a;
+    --muted: #65625a;
+    --accent: #a9790a;
+    --accent-ink: #5e4406;
+    --danger: #b23a2e;
+    --danger-bg: #fbe9e6;
+    --danger-border: #e8bdb4;
+    --success: #3f7a56;
+    --success-bg: #e9f3ec;
+    --code-bg: #ece8dd;
+    --rail: #d8d2c2;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #17181b;
+      --surface: #1f2024;
+      --surface-sunken: #26272c;
+      --border: #34353a;
+      --text: #ebe9e3;
+      --muted: #9b9890;
+      --accent: #d6a53a;
+      --accent-ink: #f0cc7c;
+      --danger: #e2766a;
+      --danger-bg: #3a2320;
+      --danger-border: #5c332c;
+      --success: #7bbd98;
+      --success-bg: #1f2e26;
+      --code-bg: #141518;
+      --rail: #3a3b40;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #17181b;
+    --surface: #1f2024;
+    --surface-sunken: #26272c;
+    --border: #34353a;
+    --text: #ebe9e3;
+    --muted: #9b9890;
+    --accent: #d6a53a;
+    --accent-ink: #f0cc7c;
+    --danger: #e2766a;
+    --danger-bg: #3a2320;
+    --danger-border: #5c332c;
+    --success: #7bbd98;
+    --success-bg: #1f2e26;
+    --code-bg: #141518;
+    --rail: #3a3b40;
+  }
+
+  :root[data-theme="light"] {
+    --bg: #f3f1ec;
+    --surface: #ffffff;
+    --surface-sunken: #eae7df;
+    --border: #dcd8cd;
+    --text: #1c1c1a;
+    --muted: #65625a;
+    --accent: #a9790a;
+    --accent-ink: #5e4406;
+    --danger: #b23a2e;
+    --danger-bg: #fbe9e6;
+    --danger-border: #e8bdb4;
+    --success: #3f7a56;
+    --success-bg: #e9f3ec;
+    --code-bg: #ece8dd;
+    --rail: #d8d2c2;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 56px 24px 96px;
+  }
+
+  header.top {
+    margin-bottom: 36px;
+  }
+
+  .eyebrow {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    font-weight: 600;
+  }
+
+  h1 {
+    font-size: clamp(28px, 4vw, 38px);
+    line-height: 1.15;
+    margin: 10px 0 10px;
+    text-wrap: balance;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .sub {
+    color: var(--muted);
+    font-size: 16.5px;
+    max-width: 56ch;
+  }
+
+  .banner {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: var(--danger-bg);
+    border: 1px solid var(--danger-border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin: 28px 0 44px;
+  }
+
+  .banner .mark {
+    flex: none;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--danger);
+    color: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  .banner p {
+    margin: 0;
+    font-size: 15px;
+  }
+
+  .banner strong {
+    color: var(--danger);
+  }
+
+  section.step {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 0 20px;
+    position: relative;
+  }
+
+  section.step::before {
+    content: "";
+    position: absolute;
+    left: 21px;
+    top: 44px;
+    bottom: -40px;
+    width: 2px;
+    background: var(--rail);
+  }
+
+  section.step:last-of-type::before {
+    display: none;
+  }
+
+  .num {
+    flex: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 2px solid var(--accent);
+    color: var(--accent-ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 17px;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    z-index: 1;
+  }
+
+  .step-body {
+    padding-bottom: 40px;
+  }
+
+  h2 {
+    margin: 2px 0 6px;
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: -0.005em;
+  }
+
+  .step-body > p.lead {
+    color: var(--muted);
+    margin: 0 0 18px;
+    font-size: 15px;
+  }
+
+  h3.sub-step {
+    font-size: 14.5px;
+    font-weight: 700;
+    margin: 22px 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  h3.sub-step .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex: none;
+  }
+
+  ol.sub, ul.sub {
+    margin: 0 0 16px;
+    padding-left: 20px;
+    font-size: 15px;
+  }
+
+  ol.sub li, ul.sub li {
+    margin-bottom: 8px;
+  }
+
+  code.inline {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    background: var(--code-bg);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.88em;
+  }
+
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    overflow-x: auto;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 13.5px;
+    line-height: 1.6;
+    margin: 10px 0 16px;
+  }
+
+  pre .prompt {
+    color: var(--muted);
+  }
+
+  pre .typed {
+    color: var(--accent-ink);
+  }
+
+  .callout {
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 14px;
+    margin: 14px 0;
+    border: 1px solid var(--border);
+    background: var(--surface-sunken);
+  }
+
+  .callout.warn {
+    background: var(--danger-bg);
+    border-color: var(--danger-border);
+  }
+
+  .callout.warn::before {
+    content: "Security";
+    display: block;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--danger);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .callout.tip {
+    background: var(--success-bg);
+  }
+
+  .callout.tip::before {
+    content: "Tip";
+    display: block;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--success);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  table.prompts {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    margin: 12px 0 18px;
+  }
+
+  table.prompts th, table.prompts td {
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  table.prompts th {
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  table.prompts code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.92em;
+  }
+
+  footer.end {
+    margin-top: 16px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 13.5px;
+  }
+
+  footer.end a {
+    color: var(--accent-ink);
+  }
+
+  @media (max-width: 480px) {
+    section.step { grid-template-columns: 34px 1fr; gap: 0 14px; }
+    .num { width: 34px; height: 34px; font-size: 14px; }
+    section.step::before { left: 16px; }
+  }
+</style>
+
+<div class="page">
+
+  <header class="top">
+    <div class="eyebrow">Springboard &middot; deployments</div>
+    <h1>Deploying SpringboardFactory to BSC Mainnet</h1>
+    <p class="sub">A walkthrough for running <code class="inline">scripts/deployMainnetFactory.js</code> for the first time, written for someone who hasn't deployed a contract before.</p>
+  </header>
+
+  <div class="banner">
+    <div class="mark">!</div>
+    <p>This deploys to <strong>BSC mainnet with real BNB</strong>, not a testnet. There is no undo. Read this whole page once before you run anything.</p>
+  </div>
+
+  <section class="step">
+    <div class="num">1</div>
+    <div class="step-body">
+      <h2>Get a private key</h2>
+      <p class="lead">A private key is the password that controls a wallet. Whoever has it can move everything in that wallet, forever: so you're about to create one specifically for this deployment, not reuse one you already have.</p>
+
+      <h3 class="sub-step"><span class="dot"></span>Create a fresh wallet</h3>
+      <ol class="sub">
+        <li>Install the <a href="https://metamask.io" target="_blank" rel="noopener">MetaMask</a> browser extension if you don't have it.</li>
+        <li>Click the account icon &rarr; <strong>Add account</strong> &rarr; <strong>Create a new account</strong>. Name it something like <em>Springboard Deployer</em> so you don't confuse it with a personal wallet later.</li>
+      </ol>
+
+      <h3 class="sub-step"><span class="dot"></span>Export the private key</h3>
+      <ol class="sub">
+        <li>With that new account selected, click the three dots &rarr; <strong>Account details</strong>.</li>
+        <li>Click <strong>Show private key</strong>, enter your MetaMask password, and copy the long string shown.</li>
+      </ol>
+
+      <div class="callout warn">
+        <p>Never paste this key into a chat window, a document, a screenshot, Slack, or anywhere other than the terminal prompt in step 2. Anyone who sees it can drain the wallet. If it's ever pasted somewhere outside your own terminal, treat it as burned: move funds out and generate a new wallet.</p>
+      </div>
+
+      <h3 class="sub-step"><span class="dot"></span>Fund it with BNB</h3>
+      <p style="font-size:15px; margin: 0 0 14px;">Send a small amount of BNB to this new account's address: just enough to cover gas for one contract deployment. Check the current price at <a href="https://bscscan.com/gastracker" target="_blank" rel="noopener">bscscan.com/gastracker</a>; 0.02 BNB is comfortably more than a factory deployment needs under normal gas conditions.</p>
+
+      <div class="callout tip">
+        <p>If you're buying BNB for the first time, any major exchange (Binance, Coinbase, etc.) can withdraw BNB directly to a BSC address: just paste this account's address as the withdrawal destination.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="step">
+    <div class="num">2</div>
+    <div class="step-body">
+      <h2>Run the deployment script</h2>
+      <p class="lead">From the project root, with dependencies installed:</p>
+
+      <pre><span class="prompt">$ </span><span class="typed">npm install</span>
+<span class="prompt">$ </span><span class="typed">npx hardhat compile</span>
+<span class="prompt">$ </span><span class="typed">npx hardhat run scripts/deployMainnetFactory.js --network bsc</span></pre>
+
+      <p style="font-size:15px;">The script runs over the public BSC RPC by default. If you have your own RPC endpoint (e.g. from a provider like Alchemy or QuickNode) and prefer to use it, add it to <code class="inline">.env</code> first:</p>
+      <pre>BSC_MAINNET_RPC_URL=https://your-rpc-endpoint-here</pre>
+
+      <p style="font-size:15px; margin-bottom: 6px;">It'll then ask you a few things, one at a time:</p>
+      <table class="prompts">
+        <tr><th>Prompt</th><th>What to enter</th></tr>
+        <tr><td>Paste your deployer wallet's private key</td><td>The key from step 1. It's masked as you type: nothing readable appears on screen, and the script never saves it anywhere.</td></tr>
+        <tr><td>Continue? (yes/no)</td><td>Shows the wallet address and its BNB balance first. Check the balance looks right, then type <code>yes</code>.</td></tr>
+        <tr><td>Factory admin address</td><td>Press Enter to default to your deployer address, or paste a different address.</td></tr>
+      </table>
+
+      <h3 class="sub-step"><span class="dot"></span>Example output</h3>
+      <p style="font-size:15px; margin: 0 0 10px;">Addresses and balance below are examples: yours will differ:</p>
+      <pre>=== SpringboardFactory Mainnet Deployment (BSC) ===
+Network: bsc
+RPC: https://bsc-dataseed.binance.org/
+
+Paste your deployer wallet's private key: <span class="typed">************************************************************</span>
+
+Deployer address: 0x8F3Cf7Ad23Cd3CaDbD9735AFf958023239c6A063
+Deployer balance: 0.0421 BNB
+
+This will deploy to BSC MAINNET using real funds. Continue? (yes/no): <span class="typed">yes</span>
+Factory admin address (press Enter to use the deployer address 0x8F3Cf7Ad23Cd3CaDbD9735AFf958023239c6A063): <span class="typed"></span>
+
+Factory admin: 0x8F3Cf7Ad23Cd3CaDbD9735AFf958023239c6A063
+
+SpringboardFactory deployed at: <span class="typed">0x4Fe82A7641F8Ca81cE3d3F4D9bC45fF3f2A9C771</span>
+
+Deployment record written to: deployments/bsc-factory.json
+
+Next steps:
+1. Update deliverables/addresses.json and deliverables/abis/.
+2. Check off the relevant item in docs/CHECKLIST.md.</pre>
+    </div>
+  </section>
+
+  <footer class="end">
+    Related reading: <a href="./DEPLOYMENT.md">DEPLOYMENT.md</a> for the full deployment reference, <a href="./HANDOFF.md">HANDOFF.md</a> for why the multisig requirement exists.
+  </footer>
+
+</div>

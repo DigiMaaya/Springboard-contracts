@@ -24,6 +24,13 @@ module.exports = {
       accounts: process.env.SEPOLIA_DEPLOYER_PRIVATE_KEY ? [process.env.SEPOLIA_DEPLOYER_PRIVATE_KEY] : [],
       chainId: 11155111,
     },
+    bsc: {
+      // No private key here on purpose: scripts/deployMainnetFactory.js prompts
+      // for it interactively instead of reading it from .env.
+      url: process.env.BSC_MAINNET_RPC_URL || "https://bsc-dataseed.binance.org/",
+      accounts: [],
+      chainId: 56,
+    },
   },
   etherscan: {
     apiKey: process.env.BSCSCAN_API_KEY || "",
