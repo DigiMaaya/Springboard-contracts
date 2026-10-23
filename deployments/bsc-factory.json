@@ -1,0 +1,11 @@
+{
+  "network": "bsc",
+  "chainId": "56",
+  "deployer": "0x19cbBf3790504d89E1a91d3d5cD789CA48B172d8",
+  "admin": "0x19cbBf3790504d89E1a91d3d5cD789CA48B172d8",
+  "deployedAt": "2026-10-23T18:39:27.707Z",
+  "address": "0xec1B63488c1E502719a350F889f7264553F96266",
+  "constructorArgs": [
+    "0x19cbBf3790504d89E1a91d3d5cD789CA48B172d8"
+  ]
+}

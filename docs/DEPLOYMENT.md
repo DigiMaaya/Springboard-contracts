@@ -31,6 +31,7 @@ Configured in `hardhat.config.js`:
 | `hardhat` | n/a | local, ephemeral, used for the test suite |
 | `bscTestnet` | 97 | testnet deployments |
 | `sepolia` | 11155111 | testnet deployments (Ethereum) |
+| `bsc` | 56 | mainnet (BSC); see [MAINNET_DEPLOY_GUIDE.html](./MAINNET_DEPLOY_GUIDE.html) |
 
 ## Deploying
 

@@ -6,7 +6,7 @@ Handoff package for the backend team: everything needed to integrate with the de
 
 | File | What it is |
 |---|---|
-| [`addresses.json`](./addresses.json) | Deployed contract addresses per network (BSC Testnet, Ethereum Sepolia), with block explorer links and notes on what each address is for |
+| [`addresses.json`](./addresses.json) | Deployed contract addresses per network (BSC Mainnet, BSC Testnet, Ethereum Sepolia), with block explorer links and notes on what each address is for |
 | [`abis/SpringboardFactory.json`](./abis/SpringboardFactory.json) | ABI for the Factory contract |
 | [`abis/ProjectSale.json`](./abis/ProjectSale.json) | ABI for the per-project sale contract |
 | [`abis/VestingContract.json`](./abis/VestingContract.json) | ABI for the per-project vesting contract |
@@ -25,6 +25,7 @@ const factory = new ethers.Contract(
   provider
 );
 // or addresses.networks.sepolia.contracts.SpringboardFactory.address on Sepolia
+// or addresses.networks.bsc.contracts.SpringboardFactory.address on BSC Mainnet
 ```
 
 For what each function/event does, see the full docs in [`../docs/`](../docs/): start with [`../docs/ARCHITECTURE.md`](../docs/ARCHITECTURE.md).

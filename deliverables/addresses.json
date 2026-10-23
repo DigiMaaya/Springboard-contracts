@@ -1,5 +1,5 @@
 {
-  "note": "Testnet validation deployments. Mainnet deployment requires the multisig setup described in docs/HANDOFF.md before going live.",
+  "note": "bscTestnet and sepolia are testnet validation deployments. bsc is the live mainnet SpringboardFactory, but its admin is still the deployer's own EOA: see docs/HANDOFF.md before registering any real project via createSale().",
   "networks": {
     "bscTestnet": {
       "network": "BSC Testnet",
@@ -29,6 +29,18 @@
           "address": "0xf4B101e98B8aAe55d9D40B0dEc7A1205357e079c",
           "explorer": "https://testnet.bscscan.com/address/0xf4B101e98B8aAe55d9D40B0dEc7A1205357e079c#code",
           "note": "Testnet-only mock standing in for a real project's token."
+        }
+      }
+    },
+    "bsc": {
+      "network": "BSC Mainnet",
+      "chainId": 56,
+      "deployedAt": "2026-10-23T18:39:27.707Z",
+      "contracts": {
+        "SpringboardFactory": {
+          "address": "0xec1B63488c1E502719a350F889f7264553F96266",
+          "explorer": "https://bscscan.com/address/0xec1B63488c1E502719a350F889f7264553F96266#code",
+          "note": "Factory admin is currently the deployer's own EOA (0x19cbBf3790504d89E1a91d3d5cD789CA48B172d8), not a multisig. Do not register real projects via createSale() until admin control is transferred to a multisig per docs/HANDOFF.md."
         }
       }
     },

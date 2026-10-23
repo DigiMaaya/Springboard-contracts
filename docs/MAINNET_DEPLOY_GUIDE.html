@@ -349,6 +349,30 @@
     .num { width: 34px; height: 34px; font-size: 14px; }
     section.step::before { left: 16px; }
   }
+
+  @media print {
+    @page {
+      margin: 16mm 14mm 26mm;
+    }
+
+    body {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .banner,
+    .callout,
+    pre,
+    table.prompts,
+    h3.sub-step {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    section.step::before {
+      display: none;
+    }
+  }
 </style>
 
 <div class="page">
